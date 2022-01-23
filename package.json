@@ -1,0 +1,27 @@
+{
+  "name": "alura-api-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michael-lourenco/alura-api-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/michael-lourenco/alura-api-nodejs/issues"
+  },
+  "homepage": "https://github.com/michael-lourenco/alura-api-nodejs#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "config": "^3.3.7",
+    "express": "^4.17.2",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.14.0"
+  }
+}
