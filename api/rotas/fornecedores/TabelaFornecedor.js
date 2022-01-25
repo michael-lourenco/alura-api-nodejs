@@ -22,7 +22,14 @@ module.exports = {
     },
     atualizar(id, dadosParaAtualizar) {
         return Modelo.update(dadosParaAtualizar, {
-            where:{
+            where: {
+                id
+            }
+        })
+    },
+    remover(id) {
+        return Modelo.destroy({
+            where: {
                 id
             }
         })
