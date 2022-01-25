@@ -1,6 +1,7 @@
 const roteador = require('express').Router()
 const TabelaFornecedor = require('./TabelaFornecedor')
 const Fornecedor = require('./Fornecedor')
+const NaoEncontrado = require('../../erros/NaoEncontrado')
 
 roteador.get('/', async (requisicao, resposta) => {
     const resultados = await TabelaFornecedor.listar()
@@ -33,16 +34,17 @@ roteador.post('/', async (requisicao, resposta) => {
     }
 })
 
-roteador.put('/:id', async (requisicao, resposta) => {
+roteador.put('/:id', async (requisicao, resposta, proximo) => {
     try {
         const id = requisicao.params.id
         const dados = requisicao.body
-        const payload = Object.assign({},{ id }, dados)
+        const payload = Object.assign({}, dados, { id })
         const fornecedor = new Fornecedor(payload)
+
         await fornecedor.atualizar()
         resposta.status(204).end()
     } catch (error) {
-        resposta.status(400).send(JSON.stringify({mensagem:error.message}))
+        proximo(error)
     }
 })
 

@@ -1,6 +1,6 @@
 const TabelaFornecedor = require('./TabelaFornecedor')
 class Fornecedor {
-    constructor({ id, nome, empresa, email, categoria, dataCriacao, dataAtualizacao, versao }) {
+    constructor({ id, empresa, email, categoria, dataCriacao, dataAtualizacao, versao }) {
         this.id = id;
         this.empresa = empresa;
         this.email = email;
@@ -26,7 +26,6 @@ class Fornecedor {
 
     async carregar() {
         const encontrado = await TabelaFornecedor.pegarPorId(this.id)
-        this.nome = encontrado.nome;
         this.empresa = encontrado.empresa;
         this.email = encontrado.email;
         this.categoria = encontrado.categoria;
