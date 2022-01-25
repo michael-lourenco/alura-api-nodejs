@@ -18,7 +18,7 @@ roteador.get('/:id', async (requisicao, resposta) => {
             JSON.stringify(fornecedor)
         )
     } catch (error) {
-        resposta.status(400).send(JSON.stringify({mensagem:error.message}))
+        resposta.status(404).send(JSON.stringify({mensagem:error.message}))
     }
 })
 
@@ -54,7 +54,7 @@ roteador.delete('/:id', async (requisicao, resposta) => {
         await fornecedor.remover()
         resposta.status(204).end()
     } catch (error) {
-        resposta.status(400).send(JSON.stringify({mensagem:error.message}))
+        resposta.status(404).send(JSON.stringify({mensagem:error.message}))
     }
 })
 
