@@ -6,7 +6,7 @@ const NaoEncontrado = require('./erros/NaoEncontrado')
 
 app.use(bodyParser.json())
 
-const roteador = require('./rotas/fornecedores/')
+const roteador = require('./rotas/fornecedores')
 
 app.use('/api/fornecedores', roteador)
 
@@ -16,9 +16,10 @@ app.use((error, requisicao, resposta, proximo) =>{
     } else {
         resposta.status(400)
     }
+    
     resposta.send(JSON.stringify({
-        mensagem:error.message,
-        id:error.id
+        mensagem: error.message,
+        id: error.idError
     }))
 })
 
