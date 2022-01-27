@@ -3,6 +3,8 @@ const app = express()
 const bodyParser = require('body-parser')
 const config = require('config')
 const NaoEncontrado = require('./erros/NaoEncontrado')
+const CampoInvalido = require('./erros/CampoInvalido')
+const DadosNaoFornecidos = require('./erros/DadosNaoFornecidos')
 
 app.use(bodyParser.json())
 
@@ -11,12 +13,17 @@ const roteador = require('./rotas/fornecedores')
 app.use('/api/fornecedores', roteador)
 
 app.use((error, requisicao, resposta, proximo) =>{
+    let status = 500
+
     if(error instanceof NaoEncontrado) {
-        resposta.status(404)
-    } else {
-        resposta.status(400)
+        status = 404
     }
-    
+
+    if(error instanceof CampoInvalido || error instanceof DadosNaoFornecidos) {
+        status = 400
+    }
+
+    resposta.status(status)
     resposta.send(JSON.stringify({
         mensagem: error.message,
         id: error.idError

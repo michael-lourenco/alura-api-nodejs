@@ -9,7 +9,7 @@ roteador.get('/', async (requisicao, resposta) => {
     )
 })
 
-roteador.get('/:id', async (requisicao, resposta) => {
+roteador.get('/:id', async (requisicao, resposta, proximo) => {
     try {
         const id = requisicao.params.id
         const fornecedor = new Fornecedor({ id })
@@ -18,18 +18,18 @@ roteador.get('/:id', async (requisicao, resposta) => {
             JSON.stringify(fornecedor)
         )
     } catch (error) {
-        resposta.status(404).send(JSON.stringify({mensagem:error.message}))
+        proximo(error)
     }
 })
 
-roteador.post('/', async (requisicao, resposta) => {
+roteador.post('/', async (requisicao, resposta, proximo) => {
     try {        
         const dadosRecebidos = requisicao.body
         const fornecedor = new Fornecedor(dadosRecebidos)
         await fornecedor.criar()
         resposta.status(201).send(JSON.stringify(fornecedor))
     } catch (error) {
-        resposta.status(400).send(JSON.stringify({mensagem:error.message}))
+        proximo(error)
     }
 })
 
@@ -47,7 +47,7 @@ roteador.put('/:id', async (requisicao, resposta, proximo) => {
     }
 })
 
-roteador.delete('/:id', async (requisicao, resposta) => {
+roteador.delete('/:id', async (requisicao, resposta, proximo) => {
     try {
         const id = requisicao.params.id
         const fornecedor = new Fornecedor({id})
@@ -55,7 +55,7 @@ roteador.delete('/:id', async (requisicao, resposta) => {
         await fornecedor.remover()
         resposta.status(204).end()
     } catch (error) {
-        resposta.status(404).send(JSON.stringify({mensagem:error.message}))
+        proximo(error)
     }
 })
 
