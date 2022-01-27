@@ -7,7 +7,7 @@ const colunas = {
         allowNull: false
     },
     preco: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.DOUBLE,
         allowNull: false
     },
     estoque: {
