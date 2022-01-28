@@ -6,5 +6,9 @@ module.exports = {
                 fornecedor: idFornecedor
             }
         })
+    },
+    inserir(dados) {
+        return Modelo.create(dados)
     }
+    
 }
