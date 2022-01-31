@@ -1,11 +1,15 @@
 const roteador = require('express').Router({ mergeParams: true });
 const Tabela = require('./TabelaProduto')
 const Produto = require('./Produto')
+const Serializador = require('../../../Serializador').SerializadorProduto
 
 roteador.get('/', async (requisicao, resposta) => {
     const produtos = await Tabela.listar(requisicao.fornecedor.id)
+    const serializador = new Serializador(
+        resposta.getHeader('Content-Type')
+    )
     resposta.send(
-        JSON.stringify(produtos)
+        serializador.serializar(produtos)
     )
 })
 
@@ -16,7 +20,10 @@ roteador.post('/', async (requisicao, resposta, proximo) => {
         const dados = Object.assign({}, corpo, { fornecedor: idFornecedor })
         const produto = new Produto(dados)
         await produto.criar()
-        resposta.status(201).send(produto)
+        const serializador = new Serializador(
+            resposta.getHeader('Content-Type')
+        )
+        resposta.status(201).send(serializador.serializar(produto))
     } catch(error) {
         proximo(error)
     }
@@ -44,7 +51,11 @@ roteador.get('/:id', async (requisicao, resposta, proximo) => {
     
         const produto = new Produto(dados)
         await produto.carregar()
-        resposta.send(JSON.stringify(produto))
+        const serializador = new Serializador(
+            resposta.getHeader('Content-Type'),
+            ['preco','estoque', 'fornecedor', 'dataCriacao', 'dataAtualizacao', 'versao']
+        )
+        resposta.send(serializador.serializar(produto))
     } catch(error) {
         proximo(error)
     }
