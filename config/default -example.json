@@ -1,8 +1,8 @@
 {
     "mysql": {
         "host": "127.0.0.1",
-        "usuario": "debian-sys-maint",
-        "senha": "8dDpTIuIzCmPv3WH",
+        "usuario": "root",
+        "senha": "",
         "banco-de-dados": "petshop"
     },
     "api":{
