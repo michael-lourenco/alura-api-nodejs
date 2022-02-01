@@ -29,7 +29,7 @@ app.use((requisicao, resposta, proximo) => {
 })
 
 app.use((requisicao, resposta, proximo) =>{
-    resposta.set('Acess-Control-Allow-Origin', '*')
+    resposta.set('Access-Control-Allow-Origin', '*')
     proximo()
 })
 const roteador = require('./rotas/fornecedores')
