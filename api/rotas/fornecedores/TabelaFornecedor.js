@@ -8,15 +8,16 @@ module.exports = {
     inserir(fornecedor) {
         return Modelo.create(fornecedor)
     },
-    async pegarPorId(id) {
-        const encontrado = Modelo.findOne({
+    async pegarPorId(idFornecedor) {
+        const encontrado = await Modelo.findOne({
             where:{
-                id
-            }
+                id: idFornecedor
+            },
+            raw: true
         })
 
         if(!encontrado) {
-            throw new NaoEncontrado()
+            throw new NaoEncontrado('fornecedor')
         }
 
         return encontrado;

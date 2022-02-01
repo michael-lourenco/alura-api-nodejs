@@ -1,7 +1,6 @@
 class NaoEncontrado extends Error {
-  constructor() {
-    const mensagem = 'Não encontrado'
-    super(mensagem)
+  constructor(nome) {
+    super(`${nome} não encontrado`)
     this.name = 'NaoEncontrado'
     this.idError = 0
   }
